@@ -15,6 +15,8 @@ export interface ConvertRequest {
   filename?: string;
   /** Quality level 1-10 (1 = smallest file, 10 = highest fidelity). Default: 5 */
   quality?: number;
+  /** Remove the background from the SVG, making it transparent. Default: false */
+  transparentBg?: boolean;
 }
 
 // ============================================
