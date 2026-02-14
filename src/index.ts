@@ -13,6 +13,8 @@ export interface ConvertRequest {
   original: string;
   /** Optional filename for metadata */
   filename?: string;
+  /** Quality level 1-10 (1 = smallest file, 10 = highest fidelity). Default: 5 */
+  quality?: number;
 }
 
 // ============================================
