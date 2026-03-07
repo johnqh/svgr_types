@@ -96,9 +96,8 @@ This package is the foundation for all `svgr_*` projects.
 - **`exactOptionalPropertyTypes`** may be enabled in some consumers -- be careful with optional fields (use `field?: T | undefined` pattern if needed).
 - Run `bun run verify` before committing to catch issues across lint, typecheck, tests, and build.
 
-## Testing
+## Testing Notes
 
-- **Command**: `bun test` (runs Vitest)
 - Tests are in `src/index.test.ts`
 - Test the helper functions (`successResponse`, `errorResponse`) and type guards
 - When adding new types, add corresponding tests for any associated helper functions
