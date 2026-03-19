@@ -1,5 +1,10 @@
 import { describe, it, expect, expectTypeOf } from 'vitest';
-import type { ConvertRequest, ConvertResult, ConvertResponse, BaseResponse } from './index';
+import type {
+  ConvertRequest,
+  ConvertResult,
+  ConvertResponse,
+  BaseResponse,
+} from './index';
 import { successResponse, errorResponse } from './index';
 
 describe('successResponse', () => {
@@ -40,7 +45,9 @@ describe('errorResponse', () => {
 describe('Type-level tests for ConvertResponse', () => {
   it('ConvertResponse is a discriminated union of BaseResponse<ConvertResult>', () => {
     // Verify that ConvertResponse is exactly what we expect
-    expectTypeOf<ConvertResponse>().toMatchTypeOf<BaseResponse<ConvertResult>>();
+    expectTypeOf<ConvertResponse>().toMatchTypeOf<
+      BaseResponse<ConvertResult>
+    >();
   });
 
   it('successResponse returns correct generic type for ConvertResult', () => {
@@ -61,7 +68,9 @@ describe('Type-level tests for ConvertResponse', () => {
     const response = successResponse(result);
 
     // Should infer the exact type of the input
-    expectTypeOf(response).toMatchTypeOf<BaseResponse<{ svg: string; width: number; height: number }>>();
+    expectTypeOf(response).toMatchTypeOf<
+      BaseResponse<{ svg: string; width: number; height: number }>
+    >();
   });
 
   it('errorResponse returns BaseResponse with never for generic', () => {
@@ -75,7 +84,11 @@ describe('Type-level tests for ConvertResponse', () => {
 
 describe('Type-level tests for discriminated union narrowing', () => {
   it('successResponse creates narrowable success response', () => {
-    const response = successResponse({ svg: '<svg/>', width: 100, height: 100 });
+    const response = successResponse({
+      svg: '<svg/>',
+      width: 100,
+      height: 100,
+    });
 
     // Type-safe narrowing should work with control flow
     if (response.success) {
