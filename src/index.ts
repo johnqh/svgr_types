@@ -44,6 +44,8 @@ export interface ConvertRequest {
   quality?: number;
   /** Remove the background from the SVG, making it transparent. Default: false */
   transparentBg?: boolean;
+  /** Run OCR to detect text and emit editable SVG `<text>` elements. Default: true */
+  ocr?: boolean;
 }
 
 // ============================================
