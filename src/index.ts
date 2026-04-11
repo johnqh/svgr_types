@@ -57,23 +57,26 @@ export interface ConvertRequest {
 /**
  * Result returned from a successful SVG conversion.
  *
- * Contains the converted SVG content and metadata about the original image dimensions.
+ * Contains a cache ID for retrieving the converted SVG and metadata about the
+ * original image dimensions. The SVG content is stored server-side and can be
+ * fetched separately via `GET /api/v1/svg/:cacheId` which returns the raw SVG
+ * with `Content-Type: image/svg+xml`.
  *
  * @interface ConvertResult
- * @property {string} svg - The complete SVG content as a valid SVG string, ready to be rendered or saved
+ * @property {string} cacheId - Unique ID for retrieving the cached SVG from `GET /api/v1/svg/:cacheId`
  * @property {number} width - Width of the original raster image in pixels
  * @property {number} height - Height of the original raster image in pixels
  *
  * @example
  * const result: ConvertResult = {
- *   svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">...</svg>',
+ *   cacheId: 'abc123-def456',
  *   width: 500,
  *   height: 500
  * };
  */
 export interface ConvertResult {
-  /** SVG content as a string */
-  svg: string;
+  /** Unique ID for retrieving the cached SVG via GET /api/v1/svg/:cacheId */
+  cacheId: string;
   /** Original image width in pixels */
   width: number;
   /** Original image height in pixels */
@@ -103,7 +106,7 @@ import type { BaseResponse } from '@sudobility/types';
  * // Success response
  * const success: ConvertResponse = {
  *   success: true,
- *   data: { svg: '...', width: 500, height: 500 },
+ *   data: { cacheId: 'abc123-def456', width: 500, height: 500 },
  *   timestamp: '2026-02-23T12:34:56.789Z'
  * };
  *
@@ -134,14 +137,14 @@ export type ConvertResponse = BaseResponse<ConvertResult>;
  * @example
  * // For ConvertResult
  * const response = successResponse({
- *   svg: '<svg>...</svg>',
+ *   cacheId: 'abc123-def456',
  *   width: 100,
  *   height: 100
  * });
  * // Returns:
  * // {
  * //   success: true,
- * //   data: { svg: '...', width: 100, height: 100 },
+ * //   data: { cacheId: 'abc123-def456', width: 100, height: 100 },
  * //   timestamp: '2026-02-23T12:34:56.789Z'
  * // }
  *
