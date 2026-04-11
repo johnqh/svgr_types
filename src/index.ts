@@ -46,6 +46,8 @@ export interface ConvertRequest {
   transparentBg?: boolean;
   /** Run OCR to detect text and emit editable SVG `<text>` elements. Default: true */
   ocr?: boolean;
+  /** Aggressively merge small and thin vector paths into their neighbors. Default: true */
+  mergePaths?: boolean;
 }
 
 // ============================================
