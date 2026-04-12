@@ -9,9 +9,17 @@ import { successResponse, errorResponse } from './index';
 
 describe('successResponse', () => {
   it('returns a success response with data', () => {
-    const result = successResponse({ svg: '<svg/>', width: 100, height: 100 });
+    const result = successResponse({
+      cacheId: 'test-cache-id',
+      width: 100,
+      height: 100,
+    });
     expect(result.success).toBe(true);
-    expect(result.data).toEqual({ svg: '<svg/>', width: 100, height: 100 });
+    expect(result.data).toEqual({
+      cacheId: 'test-cache-id',
+      width: 100,
+      height: 100,
+    });
     expect(result.timestamp).toBeDefined();
   });
 
@@ -51,7 +59,11 @@ describe('Type-level tests for ConvertResponse', () => {
   });
 
   it('successResponse returns correct generic type for ConvertResult', () => {
-    const data: ConvertResult = { svg: '<svg/>', width: 100, height: 100 };
+    const data: ConvertResult = {
+      cacheId: 'test-cache-id',
+      width: 100,
+      height: 100,
+    };
     const response = successResponse(data);
 
     // Type should be BaseResponse<ConvertResult>
@@ -64,12 +76,12 @@ describe('Type-level tests for ConvertResponse', () => {
   });
 
   it('successResponse with generic type inference', () => {
-    const result = { svg: '<svg/>', width: 100, height: 100 };
+    const result = { cacheId: 'test-cache-id', width: 100, height: 100 };
     const response = successResponse(result);
 
     // Should infer the exact type of the input
     expectTypeOf(response).toMatchTypeOf<
-      BaseResponse<{ svg: string; width: number; height: number }>
+      BaseResponse<{ cacheId: string; width: number; height: number }>
     >();
   });
 
@@ -85,7 +97,7 @@ describe('Type-level tests for ConvertResponse', () => {
 describe('Type-level tests for discriminated union narrowing', () => {
   it('successResponse creates narrowable success response', () => {
     const response = successResponse({
-      svg: '<svg/>',
+      cacheId: 'test-cache-id',
       width: 100,
       height: 100,
     });
@@ -131,12 +143,12 @@ describe('Type-level tests for ConvertRequest', () => {
 describe('Type-level tests for ConvertResult', () => {
   it('ConvertResult has all required fields', () => {
     const result: ConvertResult = {
-      svg: '<svg/>',
+      cacheId: 'test-cache-id',
       width: 100,
       height: 100,
     };
 
-    expectTypeOf(result.svg).toEqualTypeOf<string>();
+    expectTypeOf(result.cacheId).toEqualTypeOf<string>();
     expectTypeOf(result.width).toEqualTypeOf<number>();
     expectTypeOf(result.height).toEqualTypeOf<number>();
   });

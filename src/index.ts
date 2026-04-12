@@ -8,7 +8,23 @@
 // ============================================
 // Re-exports from @sudobility/types
 // ============================================
-export type { ApiResponse, BaseResponse } from '@sudobility/types';
+export type {
+  ApiResponse,
+  BaseResponse,
+  ConsumableBalanceResponse,
+  ConsumableUseResponse,
+  ConsumablePurchaseRecord,
+  ConsumableUsageRecord,
+} from '@sudobility/types';
+
+// Local import for use in type aliases and helper functions below
+import type {
+  BaseResponse,
+  ConsumableBalanceResponse,
+  ConsumableUseResponse,
+  ConsumablePurchaseRecord,
+  ConsumableUsageRecord,
+} from '@sudobility/types';
 
 // ============================================
 // Request Types
@@ -48,6 +64,8 @@ export interface ConvertRequest {
   ocr?: boolean;
   /** Aggressively merge small and thin vector paths into their neighbors. Default: true */
   mergePaths?: boolean;
+  /** Smoothing level 0-3 for the output SVG paths. Default: 0 (no smoothing) */
+  smooth?: number;
 }
 
 // ============================================
@@ -86,8 +104,6 @@ export interface ConvertResult {
 // ============================================
 // Response Type Aliases
 // ============================================
-import type { BaseResponse } from '@sudobility/types';
-
 /**
  * Full API response for conversion requests.
  *
@@ -119,6 +135,63 @@ import type { BaseResponse } from '@sudobility/types';
  * };
  */
 export type ConvertResponse = BaseResponse<ConvertResult>;
+
+// ============================================
+// Consumable Response Type Aliases
+// ============================================
+
+/** API response for GET /consumables/balance */
+export type BalanceResponse = BaseResponse<ConsumableBalanceResponse>;
+
+/** API response for POST /consumables/purchase */
+export type PurchaseResponse = BaseResponse<ConsumableBalanceResponse>;
+
+/** API response for POST /consumables/use */
+export type UseResponse = BaseResponse<ConsumableUseResponse>;
+
+/** API response for GET /consumables/purchases */
+export type PurchaseHistoryResponse = BaseResponse<ConsumablePurchaseRecord[]>;
+
+/** API response for GET /consumables/usages */
+export type UsageHistoryResponse = BaseResponse<ConsumableUsageRecord[]>;
+
+/**
+ * Result data from the RevenueCat webhook handler.
+ *
+ * @property {boolean} alreadyProcessed - Whether this transaction was already recorded (idempotent replay)
+ * @property {number} balance - The user's current credit balance after processing
+ */
+export interface WebhookResult {
+  /** Whether this transaction was already recorded (idempotent replay) */
+  alreadyProcessed: boolean;
+  /** The user's current credit balance after processing */
+  balance: number;
+}
+
+/** API response for POST /consumables/webhook */
+export type WebhookResponse = BaseResponse<WebhookResult>;
+
+/**
+ * API response for acknowledgement messages (e.g., ignored webhook events).
+ *
+ * @property {string} message - A human-readable message describing the acknowledgement
+ */
+export interface AckResult {
+  /** A human-readable acknowledgement message */
+  message: string;
+}
+
+/** API response with a simple acknowledgement message */
+export type AckResponse = BaseResponse<AckResult>;
+
+/** API response for the GET /health endpoint */
+export interface HealthResult {
+  /** Server health status */
+  status: string;
+}
+
+/** API response for the health check endpoint */
+export type HealthResponse = BaseResponse<HealthResult>;
 
 // ============================================
 // Helper Functions
