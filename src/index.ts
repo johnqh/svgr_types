@@ -31,6 +31,17 @@ import type {
 // ============================================
 
 /**
+ * Controls how the image is preprocessed before vectorization.
+ * - `auto` — auto-detect whether the image is a photo or design
+ * - `photo` — reduce colors before vectorization (best for photographs)
+ * - `design` — pass through unchanged (best for logos, illustrations, icons)
+ */
+export type ImageType = 'auto' | 'photo' | 'design';
+
+/** All valid ImageType values. */
+export const IMAGE_TYPES: readonly ImageType[] = ['auto', 'photo', 'design'] as const;
+
+/**
  * Request payload for POST /convert endpoint.
  *
  * Contains a raster image to be converted to SVG along with optional conversion parameters.
@@ -66,6 +77,8 @@ export interface ConvertRequest {
   mergePaths?: boolean;
   /** Smoothing level 0-3 for the output SVG paths. Default: 0 (no smoothing) */
   smooth?: number;
+  /** Image type for preprocessing. Default: 'auto' */
+  imageType?: ImageType;
 }
 
 // ============================================
