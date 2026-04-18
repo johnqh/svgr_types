@@ -39,7 +39,11 @@ import type {
 export type ImageType = 'auto' | 'photo' | 'design';
 
 /** All valid ImageType values. */
-export const IMAGE_TYPES: readonly ImageType[] = ['auto', 'photo', 'design'] as const;
+export const IMAGE_TYPES: readonly ImageType[] = [
+  'auto',
+  'photo',
+  'design',
+] as const;
 
 /**
  * Request payload for POST /convert endpoint.
