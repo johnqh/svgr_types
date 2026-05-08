@@ -32,17 +32,110 @@ import type {
 
 /**
  * Controls how the image is preprocessed before vectorization.
- * - `auto` — auto-detect whether the image is a photo or design
- * - `photo` — reduce colors before vectorization (best for photographs)
- * - `design` — pass through unchanged (best for logos, illustrations, icons)
+ * - `auto` — auto-detect the most suitable profile
+ * - `photo` — generic compatibility photo profile
+ * - `design` — generic compatibility design profile
+ * - `photo_portrait` — portraits and people-focused photos
+ * - `photo_product` — product shots and isolated commercial photography
+ * - `photo_scene` — general daytime or mixed-scene photography
+ * - `photo_night` — dark scenes with bright local lights and glow
+ * - `line_art` — high-contrast technical or drawn line work
+ * - `logo` — flat brand marks and clean vector-like symbols
+ * - `illustration` — general illustration and painted/vector art
+ * - `manga` — manga pages, ink lines, screentones, and bubbles
+ * - `poster` — text-heavy mixed graphic layouts
+ * - `screenshot_ui` — application or web UI screenshots
+ * - `diagram` — flowcharts, node graphs, arrows, and labeled diagrams
+ * - `blueprint_cad` — technical drawings, blueprints, and CAD-like exports
+ * - `map` — maps with roads, regions, labels, and cartographic symbols
+ * - `chart_graph` — charts, graphs, axes, legends, and plotted data
+ * - `icon_sheet` — many small icon-like components on one canvas
+ * - `sticker_sheet` — multiple isolated sticker or cutout graphics
+ * - `comic_western` — western-style comics with flatter fills and bubbles
+ * - `pixel_art` — pixel-grid artwork with hard stepped edges
+ * - `engraving` — dense hatch and engraving-like monochrome art
+ * - `watercolor` — soft wash-based illustrations
+ * - `oil_painting` — painterly scenes with broad textured brush regions
+ * - `flat_infographic` — flat graphic explainers with icons and blocks
+ * - `packaging_label` — packaging art with borders, text, and logos
+ * - `document_scan` — scanned or photographed documents
+ * - `handwritten_note` — handwriting on paper or note-like surfaces
+ * - `whiteboard` — whiteboard or marker-board captures
+ * - `signature` — sparse signature-style stroke content
+ * - `tattoo_flash` — bold isolated tattoo flash artwork
+ * - `silhouette_cutout` — simple contour-first silhouettes or cutouts
+ * - `emoji_moji` — emoji-like or mascot-like simple illustrations
  */
-export type ImageType = 'auto' | 'photo' | 'design';
+export type ImageType =
+  | 'auto'
+  | 'photo'
+  | 'design'
+  | 'photo_portrait'
+  | 'photo_product'
+  | 'photo_scene'
+  | 'photo_night'
+  | 'line_art'
+  | 'logo'
+  | 'illustration'
+  | 'manga'
+  | 'poster'
+  | 'screenshot_ui'
+  | 'diagram'
+  | 'blueprint_cad'
+  | 'map'
+  | 'chart_graph'
+  | 'icon_sheet'
+  | 'sticker_sheet'
+  | 'comic_western'
+  | 'pixel_art'
+  | 'engraving'
+  | 'watercolor'
+  | 'oil_painting'
+  | 'flat_infographic'
+  | 'packaging_label'
+  | 'document_scan'
+  | 'handwritten_note'
+  | 'whiteboard'
+  | 'signature'
+  | 'tattoo_flash'
+  | 'silhouette_cutout'
+  | 'emoji_moji';
 
 /** All valid ImageType values. */
 export const IMAGE_TYPES: readonly ImageType[] = [
   'auto',
   'photo',
   'design',
+  'photo_portrait',
+  'photo_product',
+  'photo_scene',
+  'photo_night',
+  'line_art',
+  'logo',
+  'illustration',
+  'manga',
+  'poster',
+  'screenshot_ui',
+  'diagram',
+  'blueprint_cad',
+  'map',
+  'chart_graph',
+  'icon_sheet',
+  'sticker_sheet',
+  'comic_western',
+  'pixel_art',
+  'engraving',
+  'watercolor',
+  'oil_painting',
+  'flat_infographic',
+  'packaging_label',
+  'document_scan',
+  'handwritten_note',
+  'whiteboard',
+  'signature',
+  'tattoo_flash',
+  'silhouette_cutout',
+  'emoji_moji',
 ] as const;
 
 /**
