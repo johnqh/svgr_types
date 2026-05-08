@@ -32,6 +32,8 @@ import type {
 
 /**
  * Controls how the image is preprocessed before vectorization.
+ * The full taxonomy is shared across clients and backend so the frontend can
+ * release new modes gradually without changing the contract later.
  * - `auto` — auto-detect the most suitable profile
  * - `photo` — generic compatibility photo profile
  * - `design` — generic compatibility design profile
