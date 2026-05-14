@@ -4,6 +4,10 @@ import type {
   ConvertResult,
   ConvertResponse,
   BaseResponse,
+  JobStatus,
+  CreateJobRequest,
+  JobResult,
+  ImageUploadResult,
 } from './index';
 import { successResponse, errorResponse } from './index';
 
@@ -151,5 +155,51 @@ describe('Type-level tests for ConvertResult', () => {
     expectTypeOf(result.cacheId).toEqualTypeOf<string>();
     expectTypeOf(result.width).toEqualTypeOf<number>();
     expectTypeOf(result.height).toEqualTypeOf<number>();
+  });
+});
+
+// ============================================
+// Job Types Tests
+// ============================================
+
+describe('Job types', () => {
+  it('JobStatus type covers all states', () => {
+    const statuses: JobStatus[] = ['pending', 'processing', 'done', 'error'];
+    expect(statuses).toHaveLength(4);
+  });
+
+  it('CreateJobRequest requires imageId', () => {
+    const req: CreateJobRequest = { imageId: 'test-id' };
+    expect(req.imageId).toBe('test-id');
+    expect(req.quality).toBeUndefined();
+  });
+
+  it('JobResult has required fields', () => {
+    const job: JobResult = {
+      jobId: 'j1',
+      imageId: 'i1',
+      status: 'done',
+      quality: 5,
+      transparentBg: false,
+      ocr: true,
+      mergePaths: true,
+      smooth: 0,
+      imageType: 'auto',
+      apiVersion: '1.0.52',
+      createdAt: new Date().toISOString(),
+    };
+    expect(job.status).toBe('done');
+    expect(job.svgFilename).toBeUndefined();
+  });
+
+  it('ImageUploadResult has required fields', () => {
+    const result: ImageUploadResult = {
+      imageId: 'i1',
+      originalFilename: 'photo.png',
+      width: 800,
+      height: 600,
+      fileSizeBytes: 12345,
+    };
+    expect(result.imageId).toBe('i1');
   });
 });

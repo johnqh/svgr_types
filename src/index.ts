@@ -252,6 +252,84 @@ export interface ConvertResult {
 export type ConvertResponse = BaseResponse<ConvertResult>;
 
 // ============================================
+// Image Upload Types
+// ============================================
+
+/** Result of uploading an image to the server for persistent storage. */
+export interface ImageUploadResult {
+  /** Server-assigned image UUID. */
+  imageId: string;
+  /** The user's original filename. */
+  originalFilename: string;
+  /** Natural pixel width. */
+  width: number;
+  /** Natural pixel height. */
+  height: number;
+  /** File size in bytes. */
+  fileSizeBytes: number;
+}
+
+/** Response from POST /api/v1/images/upload. */
+export type ImageUploadResponse = BaseResponse<ImageUploadResult>;
+
+// ============================================
+// Job Types
+// ============================================
+
+/** Status of a conversion job. */
+export type JobStatus = 'pending' | 'processing' | 'done' | 'error';
+
+/** Request body for POST /api/v1/jobs. */
+export interface CreateJobRequest {
+  /** UUID of the previously uploaded image. */
+  imageId: string;
+  /** Vectorization quality 1-10. Default: 5. */
+  quality?: number;
+  /** Remove background path. Default: false. */
+  transparentBg?: boolean;
+  /** Run OCR text recognition. Default: true. */
+  ocr?: boolean;
+  /** Merge small vector paths. Default: true. */
+  mergePaths?: boolean;
+  /** Smoothing level 0-3. Default: 0. */
+  smooth?: number;
+  /** Image preprocessing profile. Default: 'auto'. */
+  imageType?: ImageType;
+}
+
+/** A conversion job record returned by job endpoints. */
+export interface JobResult {
+  jobId: string;
+  imageId: string;
+  status: JobStatus;
+  errorMessage?: string;
+  quality: number;
+  transparentBg: boolean;
+  ocr: boolean;
+  mergePaths: boolean;
+  smooth: number;
+  imageType: string;
+  apiVersion: string;
+  svgFilename?: string;
+  previewFilename?: string;
+  svgWidth?: number;
+  svgHeight?: number;
+  dedupJobId?: string;
+  createdAt: string;
+  startedAt?: string;
+  completedAt?: string;
+}
+
+/** Response from POST /api/v1/jobs. */
+export type CreateJobResponse = BaseResponse<JobResult>;
+
+/** Response from GET /api/v1/jobs/:jobId. */
+export type JobStatusResponse = BaseResponse<JobResult>;
+
+/** Response from GET /api/v1/jobs?imageId=... */
+export type JobListResponse = BaseResponse<JobResult[]>;
+
+// ============================================
 // Consumable Response Type Aliases
 // ============================================
 
