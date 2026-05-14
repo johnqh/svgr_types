@@ -330,6 +330,24 @@ export type JobStatusResponse = BaseResponse<JobResult>;
 export type JobListResponse = BaseResponse<JobResult[]>;
 
 // ============================================
+// Image History Types
+// ============================================
+
+/** An uploaded image with all its conversion jobs. */
+export interface ImageWithJobs {
+  imageId: string;
+  originalFilename: string;
+  width: number;
+  height: number;
+  fileSizeBytes: number;
+  createdAt: string;
+  jobs: JobResult[];
+}
+
+/** Response from GET /api/v1/images. */
+export type ImageListResponse = BaseResponse<ImageWithJobs[]>;
+
+// ============================================
 // Consumable Response Type Aliases
 // ============================================
 
