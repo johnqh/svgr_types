@@ -36,6 +36,7 @@ import type {
  * release new modes gradually without changing the contract later.
  * - `auto` — auto-detect the most suitable profile
  * - `photo` — generic compatibility photo profile
+ * - `gray_scale` — grayscale or monochrome photos with optional global tint
  * - `design` — generic compatibility design profile
  * - `photo_portrait` — portraits and people-focused photos
  * - `photo_product` — product shots and isolated commercial photography
@@ -71,6 +72,7 @@ import type {
 export type ImageType =
   | 'auto'
   | 'photo'
+  | 'gray_scale'
   | 'design'
   | 'photo_portrait'
   | 'photo_product'
@@ -107,6 +109,7 @@ export type ImageType =
 export const IMAGE_TYPES: readonly ImageType[] = [
   'auto',
   'photo',
+  'gray_scale',
   'design',
   'photo_portrait',
   'photo_product',
