@@ -337,6 +337,8 @@ export type JobListResponse = BaseResponse<JobResult[]>;
 export interface ImageWithJobs {
   imageId: string;
   originalFilename: string;
+  /** UUID-based filename on disk for fetching via /api/v1/files/. */
+  storageFilename: string;
   width: number;
   height: number;
   fileSizeBytes: number;
