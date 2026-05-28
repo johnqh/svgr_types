@@ -181,6 +181,8 @@ export interface ConvertRequest {
   smooth?: number;
   /** Image type for preprocessing. Default: 'auto' */
   imageType?: ImageType;
+  /** Decompose into color-clustered layers before vectorization. Default: false */
+  layers?: boolean;
 }
 
 // ============================================
@@ -295,6 +297,8 @@ export interface CreateJobRequest {
   smooth?: number;
   /** Image preprocessing profile. Default: 'auto'. */
   imageType?: ImageType;
+  /** Decompose into color-clustered layers. Default: false. */
+  layers?: boolean;
 }
 
 /** A conversion job record returned by job endpoints. */
@@ -309,6 +313,7 @@ export interface JobResult {
   mergePaths: boolean;
   smooth: number;
   imageType: string;
+  layers: boolean;
   apiVersion: string;
   svgFilename?: string;
   previewFilename?: string;
