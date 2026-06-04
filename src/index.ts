@@ -216,6 +216,8 @@ export interface ConvertResult {
   width: number;
   /** Original image height in pixels */
   height: number;
+  /** Size of the generated SVG in bytes */
+  svgSizeBytes?: number;
 }
 
 // ============================================
@@ -319,6 +321,7 @@ export interface JobResult {
   previewFilename?: string;
   svgWidth?: number;
   svgHeight?: number;
+  svgSizeBytes?: number;
   dedupJobId?: string;
   createdAt: string;
   startedAt?: string;
