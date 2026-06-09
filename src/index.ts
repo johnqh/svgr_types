@@ -415,6 +415,52 @@ export interface HealthResult {
 export type HealthResponse = BaseResponse<HealthResult>;
 
 // ============================================
+// Community Types
+// ============================================
+
+/** Supported community platform types. */
+export const COMMUNITY_PLATFORMS = [
+  'forum',
+  'discord',
+  'reddit',
+  'telegram',
+  'slack',
+  'facebook',
+  'youtube',
+  'other',
+] as const;
+
+/** A community platform type (forum, discord, reddit, etc.). */
+export type CommunityPlatform = (typeof COMMUNITY_PLATFORMS)[number];
+
+/** A designer community entry. */
+export interface Community {
+  /** Unique community ID (UUID). */
+  id: string;
+  /** Language code this community serves (e.g., 'en', 'ja'). */
+  language: string;
+  /** Community name in native language. */
+  name: string;
+  /** English name, if the community has one. */
+  nameEnglish: string | null;
+  /** Short description in native language. */
+  description: string;
+  /** URL to the community. */
+  url: string;
+  /** Platform type. */
+  platform: CommunityPlatform;
+  /** Display ordering within a language. */
+  sortOrder: number;
+  /** URL to community logo or favicon. */
+  iconUrl: string | null;
+  /** ISO 8601 creation timestamp. */
+  createdAt: string;
+}
+
+/** API response for GET /api/v1/communities. */
+export type CommunitiesResponse = BaseResponse<Community[]>;
+
+// ============================================
 // Helper Functions
 // ============================================
 
